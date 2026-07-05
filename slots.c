@@ -2,9 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
-
-// Save file configuration: Hardcoded to stay inside your main slots folder
-#define SAVE_FILE "/home/qmuffin/slots/slots_balance.txt"
+#include <limits.h> // Required for PATH_MAX
 
 // Array of slot emoji symbols (Using string pointers since emojis are multi-byte characters)
 const char* SYMBOLS[] = {"🍒", "🍋", "🍊", "🍉", "👑"};
@@ -37,11 +35,24 @@ int main() {
     int balance = 1000; // Default balance for brand new players
     int bet;
 
+    // --- DYNAMIC PATH RESOLUTION FOR /home/USER/slots/ ---
+    char save_file_path[PATH_MAX];
+    char *home_dir = getenv("HOME");
+
+    if (home_dir == NULL) {
+        // Fallback to current directory if HOME environment variable isn't set
+        snprintf(save_file_path, sizeof(save_file_path), "slots_balance.txt");
+    } else {
+        // Constructs path to: /home/USER/slots/slots_balance.txt
+        snprintf(save_file_path, sizeof(save_file_path), "%s/slots/slots_balance.txt", home_dir);
+    }
+    // ----------------------------------------------------
+
     // Seed the random number generator
     srand(time(NULL));
 
     // --- LOAD SAVED BALANCE ---
-    FILE *file_read = fopen(SAVE_FILE, "r");
+    FILE *file_read = fopen(save_file_path, "r");
     if (file_read != NULL) {
         if (fscanf(file_read, "%d", &balance) != 1) {
             balance = 1000;
@@ -131,13 +142,14 @@ int main() {
     }
 
     // --- SAVE CURRENT BALANCE ON EXIT ---
-    FILE *file_write = fopen(SAVE_FILE, "w");
+    FILE *file_write = fopen(save_file_path, "w");
     if (file_write != NULL) {
         fprintf(file_write, "%d", balance);
         fclose(file_write);
         printf("Progress saved successfully!\n");
     } else {
         printf("Warning: Could not save your progress.\n");
+        printf("Ensure that the directory '%s/slots/' exists.\n", home_dir ? home_dir : "");
     }
 
     if (balance <= 0) {
@@ -147,4 +159,4 @@ int main() {
     }
 
     return 0;
-}s
+}
