@@ -14,26 +14,11 @@ A lightweight, high-performance terminal slot machine game written in pure C. It
 
 ## 🛠️ Requirements & Setup on CachyOS
 
-Since **CachyOS** is an optimized Arch Linux derivative, setting up the required developer tools takes only a few seconds.
+Setting up the required developer tools takes only a few seconds.
 
 ### 1. Install Dependencies
 * Open your terminal and install the `base-devel` package group (which includes `gcc`, `make`, and `glibc` needed for compiling C code):
 
-```bash
-sudo pacman -S base-devel
-```
-
-### 2. Setup
-* Download and add the `slots.c` code in a folder like `/home/YOUR_USERNAME/slots/`
-* Create an alias in .bashrc: `alias slots='gcc /home/YOUR_USERNAME/slots/slots.c -o /tmp/slots && /tmp/slots'`
-
-### 3. Enjoy Gambling
-
-# EXTRA
-### 📦 How to Compile Across Different Distributions
-* **Because different Linux distributions use different package managers, use the appropriate installation command for your target machine before building:**
-
-### Install GCC Compiler
 * **Arch Linux / CachyOS:** 
 ```bash 
 sudo pacman -S base-devel
@@ -53,3 +38,15 @@ sudo dnf groupinstall "Development Tools"
 ```bash
 sudo zypper install --type pattern devel_basis
 ```
+
+### 2. Setup
+* Download and add the `slots.c` code in a folder like `/home/YOUR_USERNAME/slots/`
+* Create an alias in .bashrc: `alias slots='gcc /home/YOUR_USERNAME/slots/slots.c -o /tmp/slots && /tmp/slots'`
+
+### 3. Enjoy Gambling
+
+# EXTRA
+### 📦 How to Compile Across Different Distributions
+* **Because different Linux distributions use different package managers, use the appropriate installation command for your target machine before building:**
+
+
