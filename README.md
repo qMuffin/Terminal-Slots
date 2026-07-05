@@ -43,12 +43,36 @@ sudo dnf groupinstall "Development Tools"
 ```bash
 sudo zypper install --type pattern devel_basis
 ```
+---
 
 ### 2. Setup
-* Download and add the `slots.c` code in a folder like `/home/YOUR_USERNAME/slots/`
-* Create an alias in .bashrc or .zshrc (Based on system): `alias slots='gcc /home/YOUR_USERNAME/slots/slots.c -o /tmp/slots && /tmp/slots'`
+* **Create the directory and file:**
+```bash
+mkdir -p ~/slots
+nano ~/slots/slots.c
+```
+(Paste the C code inside, press `Ctrl+O` then `Enter` to save, and `Ctrl+X` to exit)
+
+* **Create an alias in your configuration file for Bash (Ubuntu, Fedora, Mint, default CachyOS):**
+
+```bash
+echo "alias slots='gcc /home/\$USER/slots/slots.c -o /tmp/slots && /tmp/slots'" >> ~/.bashrc
+source ~/.bashrc
+```
+
+* **For Zsh (Mac, or custom Zsh setups):**
+
+```bash
+echo "alias slots='gcc /home/\$USER/slots/slots.c -o /tmp/slots && /tmp/slots'" >> ~/.zshrc
+source ~/.zshrc
+```
+---
 
 ### 3. Enjoy Gambling
+* **Now, simply open any terminal window and type:**
+```bash
+slots
+```
 
 
 
