@@ -20,11 +20,11 @@ void print_reel(const char* sym) {
     // Check byte sequences to safely apply background/text colors
     if (sym[0] == '\xf0' && sym[1] == '\x9f' && sym[2] == '\x91' && sym[3] == '\x91') {
         printf(YELLOW "[ %s ]" RESET, sym); // 👑
-    } else if (sym[0] == '\xf0' && sym[1] == '\x9f' && sym[2] == '\x8d' && sym[3] == '\x92') { 
+    } else if (sym[0] == '\xf0' && sym[1] == '\x9f' && sym[2] == '\x8d' && sym[3] == '\x92') {
         printf(RED "[ %s ]" RESET, sym); // 🍒
-    } else if (sym[0] == '\xf0' && sym[1] == '\x9f' && sym[2] == '\x8d' && sym[3] == '\x8b') { 
+    } else if (sym[0] == '\xf0' && sym[1] == '\x9f' && sym[2] == '\x8d' && sym[3] == '\x8b') {
         printf(GREEN "[ %s ]" RESET, sym); // 🍋
-    } else if (sym[0] == '\xf0' && sym[1] == '\x9f' && sym[2] == '\x8d' && sym[3] == '\x89') { 
+    } else if (sym[0] == '\xf0' && sym[1] == '\x9f' && sym[2] == '\x8d' && sym[3] == '\x89') {
         printf(MAGENTA "[ %s ]" RESET, sym); // 🍉
     } else {
         printf(BLUE "[ %s ]" RESET, sym); // 🍊
@@ -34,7 +34,7 @@ void print_reel(const char* sym) {
 int main() {
     int balance = 1000;
     int bet;
-    
+
     // Seed the random number generator
     srand(time(NULL));
 
@@ -44,7 +44,7 @@ int main() {
     while (balance > 0) {
         printf("Current Balance: $%d\n", balance);
         printf("Enter your bet (0 to quit): ");
-        
+
         if (scanf("%d", &bet) != 1) {
             printf("Invalid input!\n");
             while(getchar() != '\n'); // Clear input buffer
@@ -74,31 +74,32 @@ int main() {
             const char* anim1 = (i < 7)  ? SYMBOLS[rand() % NUM_SYMBOLS] : reel1;
             const char* anim2 = (i < 14) ? SYMBOLS[rand() % NUM_SYMBOLS] : reel2;
             const char* anim3 = (i < 20) ? SYMBOLS[rand() % NUM_SYMBOLS] : reel3;
-            
-            // Perfectly balanced column grids for standard monospaced text rendering
-            printf("  -----   -----   -----\n  ");
+
+            // Grid spacing updated to 6 dashes ('------') and 3 spaces between blocks
+            // to match the exact visual width of the emoji boxes.
+            printf("  ------   ------   ------\n  ");
             print_reel(anim1);
-            printf(" ");
+            printf("   ");
             print_reel(anim2);
-            printf(" ");
+            printf("   ");
             print_reel(anim3);
-            printf("\n  -----   -----   -----\n");
-            
+            printf("\n  ------   ------   ------\n");
+
             fflush(stdout);
-            
+
             if (i < 20) {
                 usleep(100000); // 100ms delay per frame
                 printf("\033[3A\r"); // Pull cursor up 3 lines to overwrite cleanly
             }
         }
-        printf("\n"); 
+        printf("\n");
         // --------------------------------------------
 
         // Check win conditions universally using safe string matching (strcmp)
         if (strcmp(reel1, reel2) == 0 && strcmp(reel2, reel3) == 0) {
             int winnings = 0;
             if (strcmp(reel1, SYMBOLS[4]) == 0) { // "👑"
-                winnings = bet * 10; 
+                winnings = bet * 10;
                 printf(YELLOW "JACKPOT!! You won $%d!\n\n" RESET, winnings);
             } else {
                 winnings = bet * 5;
