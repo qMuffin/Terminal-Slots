@@ -41,7 +41,7 @@ sudo zypper install --type pattern devel_basis
 
 ### 2. Setup
 * Download and add the `slots.c` code in a folder like `/home/YOUR_USERNAME/slots/`
-* Create an alias in .bashrc: `alias slots='gcc /home/YOUR_USERNAME/slots/slots.c -o /tmp/slots && /tmp/slots'`
+* Create an alias in .bashrc or .zshrc (Based on system): `alias slots='gcc /home/YOUR_USERNAME/slots/slots.c -o /tmp/slots && /tmp/slots'`
 
 ### 3. Enjoy Gambling
 
